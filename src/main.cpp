@@ -21,7 +21,7 @@ const int pinTemperatura = A0;
 void setup()
 {
   Serial.begin(9600);
-  serialEsp.begin(115200);
+  serialEsp.begin(57600);
   pinMode(pinTemperatura, INPUT);
   pinMode(pinHumedad, INPUT);
 }
