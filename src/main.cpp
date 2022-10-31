@@ -17,9 +17,9 @@ const int pinReleValvula = 6;
 const int pinHumedad = A3;
 const int pinTemperatura = A0;
 unsigned long interval = 1000;
-unsigned long interval_valvula = 10000;
+unsigned long valvula_interval = 10000;
 unsigned long previous_milis;
-unsigned long previous_milis_valvula;
+unsigned long previous_valvula;
 bool valvula = false;
 
 void setup()
@@ -31,7 +31,7 @@ void setup()
   pinMode(pinTemperatura, INPUT);
   pinMode(pinHumedad, INPUT);
   previous_milis = millis();
-  previous_milis_valvula = previous_milis;
+  // previous_valvula = previous_milis;
 }
 
 void loop()
@@ -58,10 +58,17 @@ void loop()
       {
         if (valvula == false)
         {
-          Serial.print("Regando...");
+          Serial.println("Regando...");
           digitalWrite(pinReleValvula, LOW);
           valvula = true;
-          previous_milis_valvula = millis();
+          delay(10000);
+          if (valvula)
+          {
+            Serial.println("Valvula apagada!");
+            digitalWrite(pinReleValvula, HIGH);
+            valvula = false;
+            serialEsp.print("OFFVAL");
+          }
         }
       }
       else if (data == "data")
@@ -88,13 +95,14 @@ void loop()
     previous_milis = millis();
   }
 
-  // if ((unsigned long)(current_millis - previous_milis_valvula) >= interval_valvula)
+  // if ((unsigned long)(current_millis - previous_valvula) >= valvula_interval)
   // {
   //   if (valvula)
   //   {
+  //     Serial.print("Valvula apagada!");
   //     digitalWrite(pinReleValvula, HIGH);
   //     valvula = false;
-  //     serialEsp.print("OFFVAL");
+  //     // serialEsp.print("OFFVAL");
   //   }
   // }
 }
