@@ -94,15 +94,4 @@ void loop()
     }
     previous_milis = millis();
   }
-
-  // if ((unsigned long)(current_millis - previous_valvula) >= valvula_interval)
-  // {
-  //   if (valvula)
-  //   {
-  //     Serial.print("Valvula apagada!");
-  //     digitalWrite(pinReleValvula, HIGH);
-  //     valvula = false;
-  //     // serialEsp.print("OFFVAL");
-  //   }
-  // }
 }
